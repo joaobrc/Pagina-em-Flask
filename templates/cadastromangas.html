@@ -1,0 +1,29 @@
+{%extends "template.html"%}
+{%block conteudo%}
+  <form action="{{url_for('salvar_mangas')}}" method="post" enctype="multipart/form-data">
+    
+      <figure class="thumb col-md-4">  
+        <figcaption>
+          <img class="img-responsive" src="{{ url_for('imagem', nome_imagem='capa_mangas.jpg') }}">
+          <label class="fileContainer">Capa
+            <input type="file" name="arquivo" accept=".jpg" >
+          </label>
+        </figcaption>
+      </figure>
+      <fieldset>
+      <div class="form-group">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome" class="form-control">
+      </div>
+      <div class="form-group">
+        <label span="tipo">Tipo</label>
+        <input type="text" id="tipo" name="tipo" class="form-control">
+      </div>
+      <div class="form-group">
+        <label span="capitulos">Capitulos</label>
+        <input type="text" id="capitulos" name="capitulos" class="form-control">
+      </div>
+      <button type="submit" class="mybutton">Salvar</button>
+    </fieldset>
+  </form>
+{%endblock%}

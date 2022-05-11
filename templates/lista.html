@@ -1,0 +1,24 @@
+{%extends "template.html"%}
+{%block conteudo%}
+    <table id="mytb">
+        <thead class="thead-default">
+            <tr>
+                <th>Nome</th>
+                <th>Tipo</th>
+                <th>Episodios</th>
+                <th>Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for anime in animes%}
+            <tr >
+                <td>{{anime.nome}}</td>
+                <td>{{anime.tipo}}</td>
+                <td>{{anime.episodios}}</td>
+                <td><a class="mybutton" style="margin: 12px;" href="{{url_for('editar',id=anime.id)}}">EDITAR</a><a class="mybutton" style="margin: 12px;" href="{{url_for('deletar',id=anime.id)}}">DELETAR</a></td>
+
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+{%endblock%}
