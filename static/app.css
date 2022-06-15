@@ -3,7 +3,6 @@ body {
 }
 
 .mybutton {
-    margin-bottom: 10px;
     border: none;
     color: beige;
     padding: 10px 30px;
@@ -14,6 +13,44 @@ body {
     text-decoration: none;
     text-align: center;
     background-color: rgb(87, 148, 208);
+    
+}
+.formulario{
+    display: inline-block;
+    width: 100%;
+    border-radius: 4px;
+    border: 2px solid #cccc;
+    margin: 2px 0;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+
+.conteudo-templatee{
+    position: relative;
+    margin: 0 auto;
+
+}
+
+p{
+    display: inline;
+}
+
+.caixa-btn{
+    padding: 10px;
+    margin: 10px 2px 0 0;
+    
+}
+
+.acd{
+    text-decoration: none;
+    color: white;
+
+}
+.acd:hover{
+    text-decoration: none;
+    color: white;
+
 }
 
 .mybutton:hover{
@@ -34,6 +71,12 @@ body {
 .mytitle{
     display: flex;
     justify-content: center;
+}
+
+.caixa-nav{
+    position: absolute;
+    width: 924px;
+    margin: 0 20px;
 }
 
 

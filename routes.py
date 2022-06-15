@@ -1,14 +1,13 @@
-from flask import Flask, render_template, request, redirect, session, flash, url_for, send_from_directory
-from cadastro import Anime, Usuarios, Mangas
-from helps import conectabano, recupera_imagen, excluir_imagem
+from flask import render_template, request, redirect, session, flash, url_for, send_from_directory
+from cadastro import Anime, Usuario, Mangas
+from helps import  recupera_imagen, excluir_imagem
 from aniteca import app, db
 import time
 
 @app.route('/')
 def inicio():
-    listaanime = conectabano(methods=1)
-    listAnimes = listaanime.lista()
-    return render_template("lista.html", titulo="AniTeca", animes = listAnimes)
+    listaanime = Anime.query.all()
+    return render_template("lista.html", titulo="AniTeca", animes = listaanime)
 
 
 @app.route('/cadastroanimes')
@@ -55,6 +54,25 @@ def salvar_mangas():
     arquivo.save(r'{}/capamanga{}.jpg'.format(upload_path, manga.id))
     return redirect(url_for('inicio'))
 
+
+@app.route('/cadastrousuarios')
+def cadastrousuarios():
+    return render_template('cadastrousuarios.html', titulo='Cadastro Usuario')
+
+
+
+@app.route('/criar_usuario',methods=['POST'])
+def criar_usuario():
+    nome = request.form['nome']
+    user = request.form['user']
+    senha = request.form['senha']
+    usuario = Usuario(nome=nome, user=user, senha=senha)
+    db.session.add(usuario)
+    db.session.commit()
+    return redirect(url_for('login'))
+
+
+
 @app.route('/login')
 def login():
     proxima = request.args.get("proxima")
@@ -65,10 +83,10 @@ def login():
 @app.route('/autenticar', methods=['POST',])
 def autenticar():
     proxima_pagina = request.form["proxima"]
-    usuario = conectabano(2).buscar_por_id(request.form['usuario'])
+    usuario = Usuario.query.get(request.form['usuario'])
     if usuario:
         if usuario.senha == request.form['senha']:
-            session['usuario_logado'] = usuario.nome
+            session['usuario_logado'] = usuario.user
             flash(session['usuario_logado']+" logado com sucesso")
             return redirect(proxima_pagina)
     else:
@@ -87,7 +105,7 @@ def logout():
 def editar(id):
     if 'usuario_logado' not in session or session['usuario_logado'] == None:
         return redirect(url_for('login',proxima=url_for('editar',id=id)))
-    anime = conectabano(1).buscar_animes_id(id)
+    anime = Anime.query.get(id)
     nome_imagem = recupera_imagen(id)
     return render_template("editar.html", titulo="Editando Animes", anime=anime, capa_anime=nome_imagem )### arrumar para animes e mangas
 
@@ -98,18 +116,26 @@ def atualizar():
     tipo = request.form['tipo']
     episodios = request.form['episodios']
     id = request.form['id']
-    anime = Animes(nome,tipo,episodios, id)
+    anime = Anime.query.get(id)
+
+    anime.nome = nome
+    anime.tipo = tipo
+    anime.episodios = episodios
+    anime.id = id
+    db.session.commit()
     arquivo = request.files['arquivo']
     upload_path = app.config['UPLOAD_PATH']
     excluir_imagem(anime.id)
     timestampp = time.time()
     arquivo.save('{}/capa{}-{}.jpg'.format(upload_path,anime.id,timestampp))
-    conectabano(1).salvar(anime)
+    '''editar capa portque esta quebrndo se nao for atualizada'''
     return redirect(url_for('inicio'))
 
 @app.route('/deletar/<int:id>')
 def deletar(id):
-    conectabano(1).deletar_anime(id)
+    anime = Anime.query.get(id)
+    db.session.delete(anime)
+    db.session.commit()
     flash("Anime Deletado")
     return redirect(url_for('inicio'))
     

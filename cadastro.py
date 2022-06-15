@@ -13,10 +13,11 @@ class Anime(db.Model):
         self.tipo = tipo
         self.episodios = episodios
 
-class Usuarios:
+
+class Usuario(db.Model):
     nome = db.Column(db.String(255), primary_key=True)
-    tipo = db.Column(db.String(255))
-    capitulos = db.Column(db.Integer())
+    user = db.Column(db.String(255))
+    senha = db.Column(db.Integer())
 
     def __init__(self, nome, user, senha ):
         self.nome = nome
