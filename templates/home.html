@@ -1,0 +1,41 @@
+{%extends "template.html"%}
+{%block conteudo%}
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item">
+            <div class="anime-card">
+                {% for anime in animes %}
+                <div class="row">
+                    <div class="cardtest">
+                        <h2>{{anime.nome}}</h2>
+                        <p>{{anime.episodios}}</p>
+                        <p>{{anime.tipo}}</p>
+                        <a class="mybutton" style="margin: 12px;" href="{{url_for('editar',id=anime.id)}}">EDITAR</a> <a class="mybutton" style="margin: 12px;" href="{{url_for('deletar_anime',id=anime.id)}}">DELETAR</a>
+                    </div>
+                    {%endfor%}
+                </div>  
+            </div>
+            <div class="manga-card">
+                {% for manga in mangas %}
+                <div class="row">
+                    <div class="cardtest">
+                        <h2>{{manga.nome}}</h2>
+                        <p>{{manga.capitulos}}</p>
+                        <p>{{manga.tipo}}</p>
+                        <a class="mybutton" style="margin: 12px;" href="{{url_for('editar',id=manga.id)}}">EDITAR</a> <a class="mybutton" style="margin: 12px;" href="{{url_for('deletar_manga',id=manga.id)}}">DELETAR</a>
+                    </div>
+                    {%endfor%}
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+{%endblock%}

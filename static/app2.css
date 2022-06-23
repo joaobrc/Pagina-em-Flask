@@ -1,10 +1,5 @@
 body {
     padding-top: 10px;
-    background-color: #000000;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cg %3E%3Cpolygon fill='%23220000' points='1600 160 0 460 0 350 1600 50'/%3E%3Cpolygon fill='%23440000' points='1600 260 0 560 0 450 1600 150'/%3E%3Cpolygon fill='%23660000' points='1600 360 0 660 0 550 1600 250'/%3E%3Cpolygon fill='%23880000' points='1600 460 0 760 0 650 1600 350'/%3E%3Cpolygon fill='%23A00' points='1600 800 0 800 0 750 1600 450'/%3E%3C/g%3E%3C/svg%3E");
-    background-attachment: fixed;
-    background-size: cover;   
-    color: #ccc;
 }
 
 .mybutton {
@@ -130,10 +125,6 @@ figcaption {
     margin: 3px auto;
 }
 
-.img-responsive{
-    border-radius: 6px;
-}
-
 .fileContainer {
     overflow: hidden;
     position: relative;
@@ -153,10 +144,42 @@ figcaption {
     top: 0;
 }
 
-#mytb{
+.tabelas{
+    width: 924px;
+    position: relative;
+    margin: 0 auto;
+}
+
+
+#caixa-anime{
+    position: absolute;
+    display: inline;
+    left: 0;
+    width: auto;
+}
+
+
+#caixa-manga{
+    position: absolute;
+    display: inline;
+    right: 0;
+    width: 924px;
+    
+}
+
+#info-animes{
+
+    display: table-cell
+}
+
+.antb{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     width: 100%;
+    padding: 4px;
+    margin: 6px;
+    display: block;
     border-collapse: collapse;
+
 }
 
 th, td{

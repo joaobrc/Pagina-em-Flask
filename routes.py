@@ -4,10 +4,12 @@ from helps import  recupera_imagen, excluir_imagem
 from aniteca import app, db
 import time
 
+
 @app.route('/')
 def inicio():
     listaanime = Anime.query.all()
-    return render_template("lista.html", titulo="AniTeca", animes = listaanime)
+    listamangas = Mangas.query.all()
+    return render_template("home.html", titulo="AniTeca", animes = listaanime, mangas=listamangas)
 
 
 @app.route('/cadastroanimes')
@@ -72,7 +74,6 @@ def criar_usuario():
     return redirect(url_for('login'))
 
 
-
 @app.route('/login')
 def login():
     proxima = request.args.get("proxima")
@@ -117,7 +118,6 @@ def atualizar():
     episodios = request.form['episodios']
     id = request.form['id']
     anime = Anime.query.get(id)
-
     anime.nome = nome
     anime.tipo = tipo
     anime.episodios = episodios
@@ -131,14 +131,24 @@ def atualizar():
     '''editar capa portque esta quebrndo se nao for atualizada'''
     return redirect(url_for('inicio'))
 
-@app.route('/deletar/<int:id>')
-def deletar(id):
+
+@app.route('/deletar-anime/<int:id>')
+def deletar_anime(id):
     anime = Anime.query.get(id)
     db.session.delete(anime)
     db.session.commit()
     flash("Anime Deletado")
     return redirect(url_for('inicio'))
     
+
+@app.route('/deletar-manga/<int:id>')
+def deletar_manga(id):
+    mangas = Mangas.query.get(id)
+    db.session.delete(mangas)
+    db.session.commit()
+    flash("Manga Deletado")
+    return redirect(url_for('inicio'))
+
 
 @app.route('/uploads/<nome_imagem>')
 def imagem(nome_imagem):
